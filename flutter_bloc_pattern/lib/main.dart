@@ -30,7 +30,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
      var counterBlock=CounterBlock();
-
+     @override
+  void dispose() {
+   counterBlock.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +57,10 @@ class _MyHomePageState extends State<MyHomePage> {
               stream: counterBlock.counterStream,
               initialData: 0,
               builder: (context,snapshot){
+            if(snapshot.hasError){
+              print(snapshot.error);
+              //return n;
+            }
             return Text('${snapshot.data}');
           })
           ],
